@@ -54,6 +54,7 @@ while playing:
     player_turn = None
     counter, player_turn = which_player(counter, player_turn)
     for event in ev:
+        pos = ""
         if event.type == pygame.MOUSEBUTTONDOWN:
             pos = pygame.mouse.get_pos()
             click_coors.append(pos)
