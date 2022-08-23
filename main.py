@@ -74,6 +74,7 @@ while playing:
                         p1.player_turn()
                         p2.player_turn()
                         counter = 0
+                        print(counter)
                 
 
     board.mainloop(playing)
