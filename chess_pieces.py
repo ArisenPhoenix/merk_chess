@@ -9,7 +9,9 @@ class Piece:
         self.color = color
         self.coords = coords
         self.tile_data = {}
-        self.piece = {"name": self.name, "color": self.color, "square": self.square, "coords": self.coords, "rules": {}}
+        # tile_data = self.board.Rect(x_coor, y_coor, rect_width, rect_height)
+        self.piece = {"name": self.name, "color": self.color, "square": self.square,
+                      "coords": self.coords, "rules": {}}
     
     def info(self):
         """Prints and returns the info on the selected chess piece"""
@@ -94,13 +96,13 @@ class Pawn(Piece):
         self.coords = coords
         
 
-class Empty(Piece):
-    """Empty Piece"""
-    def __init__(self, color, square, coords, name="", board_name=""):
-        super().__init__(name, color, square, coords)
-        self.name = name
-        self.board_name = board_name
-        self.color = color
-        self.square = square
-        self.coords = coords
+# class Empty(Piece):
+#     """Empty Piece"""
+#     def __init__(self, color, square, coords, name="", board_name=""):
+#         super().__init__(name, color, square, coords)
+#         self.name = name
+#         self.board_name = board_name
+#         self.color = color
+#         self.square = square
+#         self.coords = coords
     

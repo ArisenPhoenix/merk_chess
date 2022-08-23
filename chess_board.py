@@ -2,6 +2,7 @@ import pygame
 from chess_tiles import Tile
 from chess_piece_options import get_piece
 from pprint import pprint as p
+from list_obj import List
 
 white_num = 150
 white = (white_num, white_num, white_num)
@@ -23,19 +24,21 @@ def mainloop(playing):
 
 class Board:
     """Chess Board Class"""
+    
     def __init__(self, width, height, players_list=None):
         self.board = pygame
         self.player_1_pieces = []
         self.player_2_pieces = []
         self.width = width
         self.height = height
+        self.tiles = List()
         display = self.board.display
         display.init()
         display.set_caption("Merk Chess")
         self.window = display.set_mode((self.width, self.height))
         self.populate_tiles()
         self.mainloop = mainloop
-        
+    
     def populate_tiles(self):
         """Main Function For Setting Up the Chess Board With Tiles and Pieces"""
         tile = self.board.draw.rect
@@ -60,14 +63,13 @@ class Board:
                 
                 if piece[1] == "color1":
                     piece_color = p_color1
-                    
+                
                 if piece[0] is not None:
                     piece_initiated = piece[0](piece_color, tile_name, board_coords)
                 tile_info = {
                     "coords": (x_coor, y_coor), "dims": (rect_width, rect_height),
                     "location": location, "tile": tile_name, "board_coords": board_coords
                 }
-                piece_ = piece_initiated
                 
                 if piece[1] == "color1":
                     self.player_1_pieces.append(piece_initiated)
@@ -76,18 +78,17 @@ class Board:
                     self.player_2_pieces.append(piece_initiated)
                     piece_initiated.add_tile_info(tile_info)
                 tile_data = self.board.Rect(x_coor, y_coor, rect_width, rect_height)
-                
+                tile_ = object
                 if a_tile % 2 == 0:
-                    Tile(color1, color2, location, tile_name, text_coords,
-                         tile(surf, color1, tile_data), self.window, board_coords,
-                         piece_initiated)
-                    
-                if a_tile % 2 == 1:
-                    
-                    Tile(color2, color1, location, tile_name, text_coords,
-                         tile(surf, color2, tile_data), self.window, board_coords,
-                         piece_initiated)
+                    tile_ = Tile(color1, color2, location, tile_name, text_coords,
+                                 tile(surf, color1, tile_data), self.window, board_coords,
+                                 piece_initiated)
+                elif a_tile % 2 == 1:
+                    tile_ = Tile(color2, color1, location, tile_name, text_coords,
+                                 tile(surf, color2, tile_data), self.window, board_coords,
+                                 piece_initiated)
                 x_coor += rect_width
+                self.tiles.append(tile_)
         
         for column in range(8):
             if column % 2 == 0:
@@ -100,9 +101,10 @@ class Board:
     
     def update_board(self):
         self.board.display.update(self.window)
-        
+    
     def get_all_piece_info(self):
         """Returns a dictionary with both players and all their pieces."""
+        
         def list_info(player_list):
             info_list = []
             for item in player_list:
@@ -111,8 +113,7 @@ class Board:
         
         p1 = list_info(self.player_1_pieces)
         p2 = list_info(self.player_2_pieces)
-
+        
         lists = {"player1": p1, "player2": p2}
         p(lists)
         return lists
-        

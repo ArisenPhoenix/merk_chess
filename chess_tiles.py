@@ -1,5 +1,4 @@
 from pprint import pprint as p
-
 import pygame.font
 
 
@@ -24,12 +23,11 @@ class Tile:
         if piece is not None:
             self.tile["board object"].blit(self.font.render(self.piece.board_name, True, self.piece.color),
                                            (self.text_coordinates[0] + 45, self.text_coordinates[1] + 45))
-        else:
-            piece = ""
     
-    def info(self):
+    def info(self, print_=False):
         """Prints and Returns all the info in a dictionary for a given tile."""
-        p(self.tile)
+        if print_:
+            p(self.tile)
         return self.tile
 
     def add_piece(self, piece):
